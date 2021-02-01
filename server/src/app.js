@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const httpStatus = require('http-status');
 const config = require('./config');
 const routes = require('./routes');
+const { errorConverter, errorHandler } = require('./middlewares/error');
+const APIError = require('./utils/APIError');
 
 const app = express();
 
@@ -19,11 +22,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routes);
 
-// Error Handler
-/* eslint-disable no-unused-vars */
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).send('Adich poyi!');
+app.use((req, res, next) => {
+  next(new APIError(httpStatus.NOT_FOUND, 'Not found'));
 });
+
+app.use(errorConverter);
+
+// handle error
+app.use(errorHandler);
 
 module.exports = app;
