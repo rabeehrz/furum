@@ -12,6 +12,7 @@
   "rules": {
     "prettier/prettier": "error",
     "func-names": "off",
+    "max-len": ["error", { "code": 125 }],
     "comma-dangle": [
       "error",
       {

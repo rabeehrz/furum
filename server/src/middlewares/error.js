@@ -8,9 +8,7 @@ const errorConverter = (err, req, res, next) => {
   if (!(error instanceof APIError)) {
     // eslint-disable-next-line operator-linebreak
     const statusCode =
-      error.statusCode || error instanceof mongoose.Error
-        ? httpStatus.BAD_REQUEST
-        : httpStatus.INTERNAL_SERVER_ERROR;
+      error.statusCode || error instanceof mongoose.Error ? httpStatus.BAD_REQUEST : httpStatus.INTERNAL_SERVER_ERROR;
     const message = error.message || httpStatus[statusCode];
     error = new APIError(statusCode, message, false, err.stack);
   }

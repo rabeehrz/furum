@@ -15,4 +15,8 @@ module.exports = {
       useUnifiedTopology: true,
     },
   },
+  jwt: {
+    secret: env.JWT_SECRET,
+    accessExpires: 7,
+  },
 };

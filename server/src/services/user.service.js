@@ -10,6 +10,12 @@ const createUser = async (userBody) => {
   return user;
 };
 
+const getUserByEmail = async (email) => User.findOne({ email });
+
+const getUserById = async (id) => User.findById(id);
+
 module.exports = {
   createUser,
+  getUserByEmail,
+  getUserById,
 };
