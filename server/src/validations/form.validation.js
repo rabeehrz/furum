@@ -19,6 +19,7 @@ const createForm = {
           }),
         })
       )
+      .required()
       .min(1),
   }),
 };
@@ -51,6 +52,7 @@ const updateForm = {
             }),
           })
         )
+        .required()
         .min(1),
     })
     .min(1),

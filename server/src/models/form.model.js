@@ -20,6 +20,8 @@ const questionSchema = new mongoose.Schema({
   },
 });
 
+questionSchema.plugin(toJSON);
+
 const formSchema = new mongoose.Schema(
   {
     userId: {

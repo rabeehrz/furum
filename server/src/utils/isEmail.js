@@ -1,5 +1,5 @@
 const isEmail = (email) => {
-  const emailRegex = '/S+@S+.S+/';
+  const emailRegex = /\w+@\w+\.+\w+/;
   return emailRegex.test(email);
 };
 

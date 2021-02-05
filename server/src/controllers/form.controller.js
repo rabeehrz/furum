@@ -3,8 +3,6 @@ const catchAsync = require('../utils/catchAsync');
 const { formService } = require('../services');
 const APIError = require('../utils/APIError');
 
-// TODO: Move user verification to service level
-
 const createForm = catchAsync(async (req, res) => {
   const form = await formService.createForm(req.body);
   res.status(httpStatus.CREATED).send(form);

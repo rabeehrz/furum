@@ -41,9 +41,11 @@ const updateFormById = async (formId, updateBody) => {
   if (!form) {
     throw new APIError(httpStatus.NOT_FOUND, 'Form not found');
   }
-  const user = await userService.getUserById(updateBody.userId);
-  if (!user) {
-    throw new APIError(httpStatus.NOT_FOUND, 'User not found');
+  if (updateBody.userId) {
+    const user = await userService.getUserById(updateBody.userId);
+    if (!user) {
+      throw new APIError(httpStatus.NOT_FOUND, 'User not found');
+    }
   }
   validateQuestions(updateBody.questions);
   Object.assign(form, updateBody);
