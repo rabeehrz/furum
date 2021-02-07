@@ -2,8 +2,9 @@ import axios from 'axios';
 import Cookies from 'cookies';
 import jwt from 'jsonwebtoken';
 
-module.export = async (req, res) => {
+export default async (req, res) => {
   if (req.method === 'POST') {
+    console.log('IN HERE');
     try {
       const { email, password } = req.body;
       const login = await axios.post('http://rabeeh.me:9999/auth/login', {
@@ -25,9 +26,9 @@ module.export = async (req, res) => {
       res.json(login.data);
     } catch (error) {
       console.log(error.data);
-      res.status(400).send();
+      res.status(400).send('OOPS');
     }
   } else {
-    res.status(400).send();
+    res.status(400).send('OOPS');
   }
 };
