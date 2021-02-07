@@ -1,5 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const xss = require('xss-clean');
+const mongoSanitize = require('express-mongo-sanitize');
+const compression = require('compression');
+const morgan = require('morgan');
 const httpStatus = require('http-status');
 const cors = require('cors');
 const config = require('./config');
@@ -18,9 +22,15 @@ mongoose
     console.log('An error occured', err);
   });
 
+app.use(morgan('common'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(xss());
+app.use(mongoSanitize());
+
+app.use(compression());
 
 app.use('/', routes);
 
