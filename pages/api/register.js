@@ -34,4 +34,10 @@ const Register = async (req, res) => {
   }
 };
 
+export const config = {
+  api: {
+    bodyParser: process.env.NODE_ENV !== 'production',
+  },
+};
+
 export default Register;
