@@ -27,8 +27,8 @@ export default async (req, res) => {
 
       res.json(register.data);
     } catch (error) {
-      console.log(error.data);
-      res.status(400).send('OOPS');
+      console.log('ERRR', error);
+      res.status(400).send(error.data);
     }
   } else {
     res.status(400).send('OOPS');

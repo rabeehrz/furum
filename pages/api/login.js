@@ -26,7 +26,7 @@ export default async (req, res) => {
       res.json(login.data);
     } catch (error) {
       console.log(error.data);
-      res.status(400).send('OOPS');
+      res.status(400).send(error.data);
     }
   } else {
     res.status(400).send('OOPS');
