@@ -11,7 +11,7 @@ export default async (req, res) => {
         email,
         password,
       });
-      const tokenData = jwt.decode(login.data.token);
+
       const cookies = new Cookies(req, res);
       cookies.set('token', login.data.token, {
         httpOnly: true,
@@ -25,8 +25,8 @@ export default async (req, res) => {
 
       res.json(login.data);
     } catch (error) {
-      console.log(error.data);
-      res.status(400).send(error.data);
+      console.log(error);
+      res.status(400).json({ error });
     }
   } else {
     res.status(400).send('OOPS');

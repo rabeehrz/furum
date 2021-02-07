@@ -13,7 +13,7 @@ export default async (req, res) => {
         name,
         phone,
       });
-      const tokenData = jwt.decode(register.data.token);
+
       const cookies = new Cookies(req, res);
       cookies.set('token', register.data.token, {
         httpOnly: true,
@@ -28,7 +28,7 @@ export default async (req, res) => {
       res.json(register.data);
     } catch (error) {
       console.log('ERRR', error);
-      res.status(400).send(error.data);
+      res.status(400).json({ error });
     }
   } else {
     res.status(400).send('OOPS');
