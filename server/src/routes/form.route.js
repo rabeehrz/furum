@@ -10,7 +10,7 @@ router.route('/').post(auth, validate(formValidation.createForm), formController
 
 router
   .route('/:formId')
-  .get(auth, validate(formValidation.getForm), formController.getForm)
+  .get(validate(formValidation.getForm), formController.getForm)
   .patch(auth, validate(formValidation.updateForm), formController.updateForm)
   .delete(auth, validate(formValidation.deleteForm), formController.deleteForm);
 

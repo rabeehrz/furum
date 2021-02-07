@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
+const cors = require('cors');
 const config = require('./config');
 const routes = require('./routes');
 const { errorConverter, errorHandler } = require('./middlewares/error');
@@ -17,6 +18,7 @@ mongoose
     console.log('An error occured', err);
   });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

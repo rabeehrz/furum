@@ -3,7 +3,7 @@ const { objectId } = require('./custom.validation');
 
 const createResponse = {
   body: Joi.object().keys({
-    userId: Joi.string().required().custom(objectId),
+    userId: Joi.string().custom(objectId),
     formId: Joi.string().required().custom(objectId),
     responses: Joi.array()
       .items(

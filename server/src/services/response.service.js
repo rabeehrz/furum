@@ -22,12 +22,12 @@ const validateResponse = (form, responses) => {
     }
     switch (question.type) {
       case 'text':
-        if (!response.data.text) {
+        if (!response.data.text && question.required) {
           throw new APIError(httpStatus.BAD_REQUEST, `No valid input for ${question.id}`);
         }
         break;
       case 'email':
-        if (!response.data.text) {
+        if (!response.data.text && question.required) {
           throw new APIError(httpStatus.BAD_REQUEST, `No valid input for ${question.id}`);
         }
         if (!isEmail(response.data.text)) {
@@ -35,7 +35,7 @@ const validateResponse = (form, responses) => {
         }
         break;
       case 'number':
-        if (!response.data.text) {
+        if (!response.data.text && question.required) {
           throw new APIError(httpStatus.BAD_REQUEST, `No valid input for ${question.id}`);
         }
         if (!isNumeric(response.data.text)) {
@@ -44,7 +44,7 @@ const validateResponse = (form, responses) => {
         break;
       case 'select':
       case 'radio':
-        if (!response.data.text) {
+        if (!response.data.text && question.required) {
           throw new APIError(httpStatus.BAD_REQUEST, `No valid input for ${question.id}`);
         }
         if (!question.data.options.includes(response.data.text)) {
@@ -66,10 +66,10 @@ const validateResponse = (form, responses) => {
 };
 
 const createResponse = async (responseBody) => {
-  const user = await userService.getUserById(responseBody.userId);
   const form = await formService.getFormById(responseBody.formId);
-  if (!user) {
-    throw new APIError(httpStatus.NOT_FOUND, 'User not found');
+  if (responseBody.userId) {
+    const user = await userService.getUserById(responseBody.userId);
+    if (!user) throw new APIError(httpStatus.NOT_FOUND, 'User not found');
   }
   if (!form) {
     throw new APIError(httpStatus.NOT_FOUND, 'Form not found');

@@ -6,7 +6,7 @@ const { responseValidation } = require('../validations');
 
 const router = express.Router();
 
-router.route('/').post(auth, validate(responseValidation.createResponse), responseController.createResponse);
+router.route('/').post(validate(responseValidation.createResponse), responseController.createResponse);
 
 router.route('/:responseId').get(auth, validate(responseValidation.getResponse), responseController.getResponse);
 
