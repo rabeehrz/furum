@@ -76,7 +76,7 @@ const FormEdit = ({ editForm, notFound, id, responses }) => {
       delete payloadData.id;
       console.log(payloadData);
       const response = await axios.patch(
-        `http://localhost:9999/form/${id}`,
+        `http://rabeeh.me:9999/form/${id}`,
         payloadData,
         {
           headers: {
@@ -99,7 +99,7 @@ const FormEdit = ({ editForm, notFound, id, responses }) => {
         <h3 className="text-md text-green-500">
           Share this form:
           <Link href={`/form/${id}`}>
-            <a className="underline"> https://localhost:9999/form/{id}</a>
+            <a className="underline"> https://furum.now.sh/form/{id}</a>
           </Link>
         </h3>
         <div className="flex my-2 items-center ">
@@ -131,7 +131,7 @@ const FormEdit = ({ editForm, notFound, id, responses }) => {
       <h3 className="text-md text-green-500">
         Share this form:
         <Link href={`/form/${id}`}>
-          <a className="underline"> https://localhost:9999/form/{id}</a>
+          <a className="underline"> https://furum.now.sh:9999/form/{id}</a>
         </Link>
       </h3>
       <div className="flex my-2 items-center ">
@@ -185,11 +185,11 @@ export async function getServerSideProps({ params, req }) {
     if (!allCookies.token || !allCookies.user) {
       throw new Error('Not Logged In');
     }
-    const response = await axios.get(`http://localhost:9999/form/${params.id}`);
+    const response = await axios.get(`http://rabeeh.me:9999/form/${params.id}`);
     data = response.data;
     if (data.userId !== allCookies.user.id) throw new Error('No permission');
     const formResponses = await axios.get(
-      `http://localhost:9999/response/form/${params.id}`,
+      `http://rabeeh.me:9999/response/form/${params.id}`,
       {
         headers: {
           Authorization: allCookies.token,

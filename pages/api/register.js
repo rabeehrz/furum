@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 const Register = async (req, res) => {
   if (req.method === 'POST') {
     const { email, password, name, phone } = req.body;
-    const register = await axios.post('http://localhost:9999/auth/register', {
+    const register = await axios.post('http://:9999/auth/register', {
       email,
       password,
       name,

@@ -61,7 +61,7 @@ export async function getServerSideProps({ params, req }) {
   const allCookies = cookies({ req });
   try {
     const response = await axios.get(
-      `http://localhost:9999/form/user/${allCookies.user.id}`,
+      `http://rabeeh.me:9999/form/user/${allCookies.user.id}`,
       {
         headers: {
           Authorization: allCookies.token,

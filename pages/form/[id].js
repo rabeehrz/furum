@@ -45,7 +45,7 @@ const Form = ({ form, notFound }) => {
     // If user exists, add userId
     event.preventDefault();
     try {
-      const respond = await axios.post('http://localhost:9999/response', {
+      const respond = await axios.post('http://rabeeh.me:9999/response', {
         formId: form.id,
         responses: responses.current,
       });
@@ -119,7 +119,7 @@ const Form = ({ form, notFound }) => {
 export async function getServerSideProps({ params }) {
   let data;
   try {
-    const response = await axios.get(`http://localhost:9999/form/${params.id}`);
+    const response = await axios.get(`http://rabeeh.me:9999/form/${params.id}`);
     data = response.data;
   } catch (error) {
     return {
@@ -129,9 +129,6 @@ export async function getServerSideProps({ params }) {
       },
     };
   }
-  // const { data } = await axios.get(
-  //   `http://localhost:9999/form/601c610a9d76d12ba1edd1c5`,
-  // );
   return {
     props: { form: data, notFound: false },
   };
