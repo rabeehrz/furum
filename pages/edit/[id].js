@@ -3,12 +3,14 @@ import axios from 'axios';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 import FormEditor from '../../components/FormEditor';
+import Responses from '../../components/FormEditor/Responses';
 import NotFound from '../../components/NotFound';
 import cookies from 'next-cookies';
 
-const FormEdit = ({ editForm, notFound, id }) => {
+const FormEdit = ({ editForm, notFound, id, responses }) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState([]);
+  const [tab, setTab] = useState('form');
   const [success, setSuccess] = useState(false);
 
   if (notFound) {
@@ -90,16 +92,66 @@ const FormEdit = ({ editForm, notFound, id }) => {
     }
   };
 
+  if (tab === 'responses') {
+    return (
+      <Layout>
+        <h1 className="text-3xl mb-4 text-gray-800 font-bold">Edit Form</h1>
+        <h3 className="text-md text-green-500">
+          Share this form:
+          <Link href={`/form/${id}`}>
+            <a className="underline"> https://localhost:9999/form/{id}</a>
+          </Link>
+        </h3>
+        <div className="flex my-2 items-center ">
+          <button
+            className={`p-1 font-bold border-b-2 ${
+              tab === 'form' ? 'border-green-500' : ''
+            }`}
+            onClick={() => setTab('form')}
+          >
+            Form
+          </button>
+          <button
+            className={`p-1 font-bold border-b-2 ${
+              tab === 'responses' ? 'border-green-500' : ''
+            }`}
+            onClick={() => setTab('responses')}
+          >
+            Responses
+          </button>
+        </div>
+        <Responses items={responses} />
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <h1 className="text-3xl mb-4 text-gray-800 font-bold">Edit Form</h1>
-
       <h3 className="text-md text-green-500">
         Share this form:
         <Link href={`/form/${id}`}>
           <a className="underline"> https://localhost:9999/form/{id}</a>
         </Link>
       </h3>
+      <div className="flex my-2 items-center ">
+        <button
+          className={`p-1 font-bold border-b-2 ${
+            tab === 'form' ? 'border-green-500' : ''
+          }`}
+          onClick={() => setTab('form')}
+        >
+          Form
+        </button>
+        <button
+          className={`p-1 font-bold border-b-2 ${
+            tab === 'responses' ? 'border-green-500' : ''
+          }`}
+          onClick={() => setTab('responses')}
+        >
+          Responses
+        </button>
+      </div>
 
       <FormEditor form={editForm} updateParentState={updateForm} />
       {errors.length > 0 && (
@@ -127,7 +179,7 @@ const FormEdit = ({ editForm, notFound, id }) => {
 };
 
 export async function getServerSideProps({ params, req }) {
-  let data;
+  let data, responses;
   try {
     const allCookies = cookies({ req });
     if (!allCookies.token || !allCookies.user) {
@@ -136,17 +188,29 @@ export async function getServerSideProps({ params, req }) {
     const response = await axios.get(`http://localhost:9999/form/${params.id}`);
     data = response.data;
     if (data.userId !== allCookies.user.id) throw new Error('No permission');
+    const formResponses = await axios.get(
+      `http://localhost:9999/response/form/${params.id}`,
+      {
+        headers: {
+          Authorization: allCookies.token,
+        },
+      },
+    );
+    responses = formResponses.data;
+    console.log(responses);
   } catch (error) {
+    console.log(error);
     return {
       props: {
         editForm: {},
+        responses: {},
         notFound: true,
       },
     };
   }
 
   return {
-    props: { editForm: data, notFound: false, id: params.id },
+    props: { editForm: data, responses, notFound: false, id: params.id },
   };
 }
 

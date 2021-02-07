@@ -95,7 +95,6 @@ const FormElement = ({ question, dispatch, elementIndex }) => {
       {['select', 'radio', 'checkbox'].includes(type) && (
         <div className="mt-4">
           <ul className="flex flex-col space-y-3">
-            {console.log(options)}
             {options.map((option, index) => (
               <li key={index} className="flex items-center space-x-2">
                 <span>
