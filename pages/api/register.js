@@ -20,7 +20,7 @@ export default async (req, res) => {
         sameSite: 'lax',
       });
 
-      cookies.set('user', JSON.stringify(login.data.user), {
+      cookies.set('user', JSON.stringify(register.data.user), {
         httpOnly: true,
         sameSite: 'lax',
       });

@@ -23,7 +23,7 @@ const Register = () => {
         phone,
       });
       if (typeof window !== 'undefined') {
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         localStorage.setItem('token', response.data.token);
       }
       Router.push('/');
