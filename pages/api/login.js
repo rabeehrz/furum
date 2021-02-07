@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'cookies';
 import jwt from 'jsonwebtoken';
 
-const Login = async (req, res) => {
+module.export = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const { email, password } = req.body;
@@ -31,5 +31,3 @@ const Login = async (req, res) => {
     res.status(400).send();
   }
 };
-
-export default Login;

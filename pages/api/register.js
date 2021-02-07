@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'cookies';
 import jwt from 'jsonwebtoken';
 
-const Register = async (req, res) => {
+module.exports = async (req, res) => {
   if (req.method === 'POST') {
     const { email, password, name, phone } = req.body;
     const register = await axios.post('http://rabeeh.me:9999/auth/register', {
@@ -33,5 +33,3 @@ const Register = async (req, res) => {
     res.status(400).send();
   }
 };
-
-export default Register;
