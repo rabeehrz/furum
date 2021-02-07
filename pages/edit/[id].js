@@ -99,7 +99,7 @@ const FormEdit = ({ editForm, notFound, id, responses }) => {
         <h3 className="text-md text-green-500">
           Share this form:
           <Link href={`/form/${id}`}>
-            <a className="underline"> https://furum.now.sh/form/{id}</a>
+            <a className="underline"> https://rabeeh.me:3000/form/{id}</a>
           </Link>
         </h3>
         <div className="flex my-2 items-center ">
@@ -131,7 +131,7 @@ const FormEdit = ({ editForm, notFound, id, responses }) => {
       <h3 className="text-md text-green-500">
         Share this form:
         <Link href={`/form/${id}`}>
-          <a className="underline"> https://furum.now.sh:9999/form/{id}</a>
+          <a className="underline"> https://rabeeh.me:3000/form/{id}</a>
         </Link>
       </h3>
       <div className="flex my-2 items-center ">
