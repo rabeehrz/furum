@@ -67,12 +67,16 @@ const FormCreate = ({ Component, pageProps }) => {
         userId: user.id,
       };
       const response = await axios.post(
-        'http://rabeeh.me:9999/form',
+        'https://rabeeh.me:9999/form',
         payloadData,
         {
           headers: {
             Authorization: token,
           },
+
+          httpsAgent: new https.Agent({
+            rejectUnauthorized: false,
+          }),
         },
       );
       console.log(response);
